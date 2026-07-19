@@ -85,5 +85,115 @@
   <script>window.SennGuard.requireInvite('index.html');</script>
   <script src="js/effects.js"></script>
   <script src="js/rsvp.js"></script>
+  <script>
+    // 1. Logika untuk mendeteksi pilihan kehadiran (Yes / No) secara interaktif
+    const rsvpOptions = document.querySelectorAll('.rsvp-option');
+    let selectedAttendance = "💖 OFCC ><"; // Default pilihan awal
+
+    // Set status 'active' secara visual pada opsi pertama saat halaman dimuat
+    if (rsvpOptions.length > 0) {
+      rsvpOptions[0].classList.add('active');
+    }
+
+    rsvpOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        rsvpOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        
+        const attendanceValue = option.getAttribute('data-value');
+        if (attendanceValue === 'yes') {
+          selectedAttendance = "💖 OFCC ><";
+        } else {
+          selectedAttendance = "😢 NUHH :(";
+        }
+      });
+    });
+
+    // 2. Logika Kirim Data ke Google Sheets
+    const rsvpForm = document.getElementById('rsvp-form');
+    const rsvpSubmitBtn = document.getElementById('rsvp-submit');
+    const rsvpPopup = document.getElementById('rsvp-popup');
+    const closePopupBtn = document.getElementById('close-rsvp-popup');
+
+    if (rsvpForm) {
+      rsvpForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Mengubah teks tombol saat proses mengirim biar terasa premium dan interaktif
+        if (rsvpSubmitBtn) {
+          rsvpSubmitBtn.innerText = "SENDING... ✨";
+          rsvpSubmitBtn.disabled = true;
+        }
+
+        // Mengambil data dari input form
+        const guestName = document.getElementById('rsvp-name').value;
+        const guestPhone = document.getElementById('rsvp-phone').value;
+        const guestMessage = document.getElementById('rsvp-message').value || "-";
+
+        // =========================================================================
+        // TEMPELKAN URL WEB APP GOOGLE SCRIPT LO DI BAWAH INI:
+        // =========================================================================
+        const googleSheetsEndpoint = "https://script.google.com/macros/s/AKfycbxncsqZkra1hCN3w3Rp2h5DqnAdx0846NCDNPRz0n7OP-V-BDfNLT8OPfytEUY6I84G/exec"; 
+
+        // Payload data yang dikirim dalam format JSON
+        const payloadData = {
+          name: guestName,
+          phone: guestPhone,
+          attendance: selectedAttendance,
+          message: guestMessage
+        };
+
+        // Mengirimkan data menggunakan Fetch API secara background (Silent & Real-time)
+        fetch(googleSheetsEndpoint, {
+          method: 'POST',
+          mode: 'no-cors', // 'no-cors' sangat ampuh memotong isu CORS browser pada redirect Apps Script
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payloadData)
+        })
+        .then(() => {
+          // Ketika data sukses terkirim ke Google Sheets:
+          if (rsvpSubmitBtn) {
+            rsvpSubmitBtn.innerText = "SEND 💌";
+            rsvpSubmitBtn.disabled = false;
+          }
+
+          // Kosongkan kembali form inputan
+          rsvpForm.reset();
+
+          // Tampilkan Popup Sukses bawaan HTML lo
+          if (rsvpPopup) {
+            rsvpPopup.classList.add('active');
+            rsvpPopup.style.display = 'flex'; 
+          }
+
+          // Trigger efek ledakan confetti mewah
+          if (typeof confetti === 'function') {
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 } });
+          }
+        })
+        .catch(err => {
+          console.error("Gagal mengirim data rsvp:", err);
+          alert("Oops! Terjadi gangguan jaringan. Silakan coba kirim kembali.");
+          if (rsvpSubmitBtn) {
+            rsvpSubmitBtn.innerText = "SEND 💌";
+            rsvpSubmitBtn.disabled = false;
+          }
+        });
+      });
+    }
+
+    // Menutup popup sukses jika tombol continue diklik
+    if (closePopupBtn) {
+      closePopupBtn.addEventListener('click', () => {
+        if (rsvpPopup) {
+          rsvpPopup.classList.remove('active');
+          rsvpPopup.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
