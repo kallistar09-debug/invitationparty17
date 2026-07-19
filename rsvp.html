@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>RSVP — SENN Sweet Seventeen</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <canvas id="wave-canvas" class="bg-canvas-layer"></canvas>
+  <div id="bubble-layer" class="bg-canvas-layer"></div>
+  <div id="sparkle-layer" class="bg-canvas-layer"></div>
+
+  <div class="nav-back" data-target="dresscode.html" aria-label="Go back">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <div class="flow-progress">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+  </div>
+
+  <main class="stage">
+    <div class="content-layer">
+      <div class="glass-card">
+        <div class="text-center">
+          <span class="eyebrow">RSVP</span>
+          <h2 class="page-title" style="font-size:clamp(2rem,5vw,2.8rem); margin-top:0.5rem;">Can u come to my<br>17th birthday??</h2>
+        </div>
+
+        <form id="rsvp-form" class="rsvp-form">
+          <div class="form-group">
+            <label for="rsvp-name">Full Name</label>
+            <input type="text" id="rsvp-name" name="name" placeholder="Your full name" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-phone">Phone Number</label>
+            <input type="tel" id="rsvp-phone" name="phone" placeholder="e.g. 0812xxxxxxx" autocomplete="tel">
+          </div>
+
+          <div class="form-group">
+            <label>Can u come to my 17th birthday??</label>
+            <div class="rsvp-options">
+              <div class="rsvp-option" data-value="coming">OFCC &gt;&lt;</div>
+              <div class="rsvp-option" data-value="not_coming">NUHH :(</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvp-message">Message</label>
+            <textarea id="rsvp-message" name="message" placeholder="Leave a sweet message for Senn..."></textarea>
+          </div>
+
+          <p id="rsvp-error" class="form-error"></p>
+
+          <button type="submit" class="btn btn-primary">SEND 💌</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- RSVP success popup -->
+  <div class="popup-overlay" id="rsvp-popup">
+    <div class="glass-card popup-card">
+      <div class="popup-icon">🎉</div>
+      <h3>Thank you!!</h3>
+      <p class="subtitle">Can't wait to celebrate with you!</p>
+      <button id="popup-continue" class="btn btn-primary mt-2">Continue</button>
+    </div>
+  </div>
+
+  <audio id="bg-audio" loop preload="none">
+    <source src="assets/audio/ambient-ocean-piano.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle" class="music-toggle" aria-label="Toggle background music">
+    <div class="music-bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script>window.SennGuard.requireInvite('index.html');</script>
+  <script src="js/effects.js"></script>
+  <script src="js/rsvp.js"></script>
+</body>
+</html>

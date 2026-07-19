@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Admin Dashboard — SENN Sweet Seventeen</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <canvas id="wave-canvas" class="bg-canvas-layer"></canvas>
+  <div id="sparkle-layer" class="bg-canvas-layer"></div>
+
+  <div class="dashboard-shell">
+
+    <header class="dash-header">
+      <div class="brand">SENN <span>Admin Dashboard</span></div>
+      <div class="dash-actions">
+        <button id="refresh-btn" class="btn btn-ghost btn-sm">Refresh Data</button>
+        <button id="export-btn" class="btn btn-ghost btn-sm">Download Excel (.xlsx)</button>
+        <button id="logout-btn" class="btn btn-primary btn-sm">Logout</button>
+      </div>
+    </header>
+
+    <section class="stats-row">
+      <div class="glass-card stat-card">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total RSVP</div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-num" id="stat-coming">0</div>
+        <div class="stat-label">Coming</div>
+      </div>
+      <div class="glass-card stat-card">
+        <div class="stat-num" id="stat-not-coming">0</div>
+        <div class="stat-label">Can't Come</div>
+      </div>
+    </section>
+
+    <section class="dash-grid">
+
+      <div class="glass-card">
+        <div class="table-search">
+          <h3 style="font-size:1.3rem;">Guest List</h3>
+          <input type="text" id="guest-search" class="search-input" placeholder="Search by name, phone, or message...">
+        </div>
+        <div class="table-wrap">
+          <table class="guest-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Attendance</th>
+                <th>Message</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="guest-table-body"></tbody>
+          </table>
+          <div id="table-empty" class="empty-state hidden">
+            <p>No RSVPs yet. Once guests respond, they'll show up here.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card chart-card">
+        <h3 style="font-size:1.3rem; margin-bottom:1rem;">Attendance</h3>
+        <canvas id="pie-canvas" width="220" height="220" style="margin:0 auto;"></canvas>
+        <div class="chart-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#CFAF86;"></span> Coming</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#F3AFC6;"></span> Can't Come</div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script>window.SennGuard.requireAdmin('admin-login.html');</script>
+  <script src="js/effects.js"></script>
+  <script src="js/rsvp.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

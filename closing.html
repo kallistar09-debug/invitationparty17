@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>See You at the Beach — SENN Sweet Seventeen</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <canvas id="wave-canvas" class="bg-canvas-layer"></canvas>
+  <div id="bubble-layer" class="bg-canvas-layer"></div>
+  <div id="sparkle-layer" class="bg-canvas-layer"></div>
+
+  <div class="nav-back" data-target="rsvp.html" aria-label="Go back">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <div class="flow-progress">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+  </div>
+
+  <main class="stage closing-stage">
+    <div class="content-layer">
+      <div class="glass-card text-center" id="closing-card">
+        <span class="eyebrow">Thank You</span>
+        <h2 class="page-title" style="font-size:clamp(2rem,5vw,2.8rem); margin-top:0.5rem;">
+          Thank you for celebrating<br>my Sweet Seventeen.
+        </h2>
+        <p class="subtitle">Your presence will make my day even more special.</p>
+        <p class="closing-note">Don't forget to bring me a gift... cause I'm a gift person. LOL 😂</p>
+
+        <div id="countdown-grid" class="countdown-grid">
+          <div class="countdown-unit"><span class="num" id="cd-days">00</span><span class="label">Days</span></div>
+          <div class="countdown-unit"><span class="num" id="cd-hours">00</span><span class="label">Hours</span></div>
+          <div class="countdown-unit"><span class="num" id="cd-mins">00</span><span class="label">Minutes</span></div>
+          <div class="countdown-unit"><span class="num" id="cd-secs">00</span><span class="label">Seconds</span></div>
+        </div>
+        <p id="cd-ended-msg" class="quote-line hidden">Can't wait to celebrate with you!</p>
+
+        <p class="closing-sign">XOXO, Senn</p>
+
+        <button id="see-you-btn" class="btn btn-primary mt-2">See You at the Beach 🏖️</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="popup-overlay" id="closing-popup">
+    <div class="glass-card popup-card">
+      <div class="popup-icon">🌊</div>
+      <h3>See you soon!</h3>
+      <p class="subtitle">Thank you for being part of my special day.</p>
+      <button id="closing-popup-close" class="btn btn-primary mt-2">Close</button>
+    </div>
+  </div>
+
+  <audio id="bg-audio" loop preload="none">
+    <source src="assets/audio/ambient-ocean-piano.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle" class="music-toggle" aria-label="Toggle background music">
+    <div class="music-bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script>window.SennGuard.requireInvite('index.html');</script>
+  <script src="js/effects.js"></script>
+  <script src="js/countdown.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.gsap) {
+        gsap.from('#closing-card', { y: 40, opacity: 0, duration: 1, ease: 'power3.out' });
+      }
+      const btn = document.getElementById('see-you-btn');
+      const popup = document.getElementById('closing-popup');
+      const closeBtn = document.getElementById('closing-popup-close');
+
+      btn.addEventListener('click', () => {
+        if (window.SennConfetti) window.SennConfetti.grand();
+        popup.classList.add('show');
+      });
+      closeBtn.addEventListener('click', () => popup.classList.remove('show'));
+    });
+  </script>
+</body>
+</html>

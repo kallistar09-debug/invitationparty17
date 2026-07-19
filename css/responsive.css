@@ -1,0 +1,38 @@
+/* ==========================================================================
+   SENN — Sweet Seventeen | Responsive rules
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .dash-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .role-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .dress-grid { grid-template-columns: 1fr; }
+  .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+  .code-inputs input { width: 46px; height: 54px; font-size: 1.3rem; }
+  .stats-row { grid-template-columns: 1fr; }
+  .stage { padding: 5vh 5vw; }
+  .glass-card { border-radius: var(--radius-md); }
+}
+
+@media (max-width: 480px) {
+  .code-inputs { gap: 0.5rem; }
+  .code-inputs input { width: 40px; height: 48px; font-size: 1.1rem; }
+  .music-toggle { width: 46px; height: 46px; bottom: 16px; right: 16px; }
+  .nav-back { width: 40px; height: 40px; top: 16px; left: 16px; }
+  .flow-progress { top: 18px; }
+  .rsvp-options { flex-direction: column; }
+  .dash-header { flex-direction: column; align-items: flex-start; }
+  .table-search { flex-direction: column; align-items: stretch; }
+}
+
+@media (hover: none) {
+  .glass-card.hoverable:hover { transform: none; }
+  .dress-card:hover { transform: none; }
+}
+
+@media print {
+  .music-toggle, .nav-back, .flow-progress, .bg-canvas-layer { display: none !important; }
+}

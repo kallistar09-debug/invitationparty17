@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Admin Login — SENN Sweet Seventeen</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <canvas id="wave-canvas" class="bg-canvas-layer"></canvas>
+  <div id="bubble-layer" class="bg-canvas-layer"></div>
+  <div id="sparkle-layer" class="bg-canvas-layer"></div>
+
+  <div class="nav-back" data-target="index.html" aria-label="Go back">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <main class="stage">
+    <div class="content-layer">
+      <div class="glass-card admin-card" id="admin-card">
+        <div class="text-center" style="margin-bottom:1.5rem;">
+          <svg class="password-lock" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="26" width="36" height="26" rx="6" stroke="currentColor" stroke-width="2.5" fill="rgba(207,175,134,0.12)"/>
+            <path d="M22 26 V18 a10 10 0 0 1 20 0 v8" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="32" cy="38" r="3" fill="currentColor"/>
+          </svg>
+          <span class="eyebrow">Private Dashboard</span>
+          <h2 class="page-title" style="font-size:2.2rem; margin-top:0.4rem;">Admin Login</h2>
+        </div>
+
+        <form id="admin-login-form">
+          <div class="form-group">
+            <label for="admin-username">Username</label>
+            <input type="text" id="admin-username" placeholder="Username" autocomplete="username" required>
+          </div>
+          <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" placeholder="Password" autocomplete="current-password" required>
+          </div>
+
+          <p id="admin-feedback" class="code-feedback"></p>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">LOGIN</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

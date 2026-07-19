@@ -1,0 +1,10 @@
+Add your royalty-free "soft ocean waves + piano" track here, named exactly:
+
+  ambient-ocean-piano.mp3
+
+The site already references this path (in every page's <audio> tag), so
+once the file exists here, background music will play automatically —
+no code changes needed.
+
+Good royalty-free sources: Pixabay Music, YouTube Audio Library,
+Free Music Archive (check each track's license before using it publicly).
