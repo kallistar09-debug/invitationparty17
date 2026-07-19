@@ -33,12 +33,12 @@
         <form id="rsvp-form" class="rsvp-form">
           <div class="form-group">
             <label for="rsvp-name">Full Name</label>
-            <input type="text" id="rsvp-name" name="name" placeholder="Your full name" autocomplete="name">
+            <input type="text" id="rsvp-name" name="name" placeholder="Your full name" autocomplete="name" required>
           </div>
 
           <div class="form-group">
             <label for="rsvp-phone">Phone Number</label>
-            <input type="tel" id="rsvp-phone" name="phone" placeholder="e.g. 0812xxxxxxx" autocomplete="tel">
+            <input type="tel" id="rsvp-phone" name="phone" placeholder="e.g. 0812xxxxxxx" autocomplete="tel" required>
           </div>
 
           <div class="form-group">
@@ -56,7 +56,6 @@
 
           <p id="rsvp-error" class="form-error"></p>
 
-          <!-- Tambahin id="rsvp-submit" di sini biar JS bisa nangkep tombolnya -->
           <button type="submit" id="rsvp-submit" class="btn btn-primary">SEND 💌</button>
         </form>
       </div>
@@ -69,7 +68,6 @@
       <div class="popup-icon">🎉</div>
       <h3>Thank you!!</h3>
       <p class="subtitle">Can't wait to celebrate with you!</p>
-      <!-- Pastikan ID di sini sesuai dengan yang di JS -->
       <button id="popup-continue" class="btn btn-primary mt-2">Continue</button>
     </div>
   </div>
@@ -84,15 +82,18 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>
-  <script>window.SennGuard.requireInvite('index.html');</script>
   <script src="js/effects.js"></script>
-  <script src="js/rsvp.js"></script>
-  <script>
-    // 1. Logika untuk mendeteksi pilihan kehadiran (Yes / No) secara interaktif
-    const rsvpOptions = document.querySelectorAll('.rsvp-option');
-    let selectedAttendance = "💖 OFCC ><"; // Default pilihan awal
+  
+  <!-- FIX 1: SennGuard di-comment dulu biar ga infinite refresh -->
+  <!-- <script>window.SennGuard.requireInvite('index.html');</script> -->
+  
+  <!-- FIX 2: js/rsvp.js dihapus biar ga bentrok sama script di bawah -->
 
-    // Set status 'active' secara visual pada opsi pertama saat halaman dimuat
+  <script>
+    // 1. Logika untuk mendeteksi pilihan kehadiran (Yes / No)
+    const rsvpOptions = document.querySelectorAll('.rsvp-option');
+    let selectedAttendance = "💖 OFCC ><"; // Default
+
     if (rsvpOptions.length > 0) {
       rsvpOptions[0].classList.add('active');
     }
@@ -103,7 +104,6 @@
         option.classList.add('active');
         
         const attendanceValue = option.getAttribute('data-value');
-        // PERBAIKAN: Ubah 'yes' jadi 'coming' agar sesuai dengan data-value di HTML
         if (attendanceValue === 'coming') {
           selectedAttendance = "💖 OFCC ><";
         } else {
@@ -112,34 +112,28 @@
       });
     });
 
-    // 2. Logika Kirim Data ke Google Sheets
+    // 2. Logika Kirim Data
     const rsvpForm = document.getElementById('rsvp-form');
     const rsvpSubmitBtn = document.getElementById('rsvp-submit');
     const rsvpPopup = document.getElementById('rsvp-popup');
-    // PERBAIKAN: Ubah ID selector biar sesuai dengan ID tombol di HTML
     const closePopupBtn = document.getElementById('popup-continue');
 
     if (rsvpForm) {
       rsvpForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+        event.preventDefault(); // Mencegah web ke-refresh pas diklik
 
-        // Mengubah teks tombol saat proses mengirim biar terasa premium dan interaktif
         if (rsvpSubmitBtn) {
           rsvpSubmitBtn.innerText = "SENDING... ✨";
           rsvpSubmitBtn.disabled = true;
         }
 
-        // Mengambil data dari input form
         const guestName = document.getElementById('rsvp-name').value;
         const guestPhone = document.getElementById('rsvp-phone').value;
         const guestMessage = document.getElementById('rsvp-message').value || "-";
 
-        // =========================================================================
-        // TEMPELKAN URL WEB APP GOOGLE SCRIPT LO DI BAWAH INI:
-        // =========================================================================
+        // Ganti dengan URL Google Apps Script lo
         const googleSheetsEndpoint = "https://script.google.com/macros/s/AKfycbxncsqZkra1hCN3w3Rp2h5DqnAdx0846NCDNPRz0n7OP-V-BDfNLT8OPfytEUY6I84G/exec"; 
 
-        // Payload data yang dikirim dalam format JSON
         const payloadData = {
           name: guestName,
           phone: guestPhone,
@@ -147,10 +141,9 @@
           message: guestMessage
         };
 
-        // Mengirimkan data menggunakan Fetch API secara background (Silent & Real-time)
         fetch(googleSheetsEndpoint, {
           method: 'POST',
-          mode: 'no-cors', // 'no-cors' sangat ampuh memotong isu CORS browser pada redirect Apps Script
+          mode: 'no-cors', 
           cache: 'no-cache',
           headers: {
             'Content-Type': 'application/json'
@@ -158,36 +151,31 @@
           body: JSON.stringify(payloadData)
         })
         .then(() => {
-          // Ketika data sukses terkirim ke Google Sheets:
           if (rsvpSubmitBtn) {
             rsvpSubmitBtn.innerText = "SEND 💌";
             rsvpSubmitBtn.disabled = false;
           }
 
-          // Kosongkan kembali form inputan
           rsvpForm.reset();
           
-          // Reset opsi ke default (OFCC) setelah disubmit
           rsvpOptions.forEach(opt => opt.classList.remove('active'));
           if (rsvpOptions.length > 0) {
             rsvpOptions[0].classList.add('active');
           }
-          selectedAttendance = "💖 OFCC";
+          selectedAttendance = "💖 OFCC ><";
 
-          // Tampilkan Popup Sukses bawaan HTML lo
           if (rsvpPopup) {
             rsvpPopup.classList.add('active');
             rsvpPopup.style.display = 'flex'; 
           }
 
-          // Trigger efek ledakan confetti mewah
           if (typeof confetti === 'function') {
             confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 } });
           }
         })
         .catch(err => {
-          console.error("Gagal mengirim data rsvp:", err);
-          alert("Oops! Terjadi gangguan jaringan. Silakan coba kirim kembali.");
+          console.error("Error:", err);
+          alert("Jaringan bermasalah bro, coba lagi ya!");
           if (rsvpSubmitBtn) {
             rsvpSubmitBtn.innerText = "SEND 💌";
             rsvpSubmitBtn.disabled = false;
@@ -196,7 +184,6 @@
       });
     }
 
-    // Menutup popup sukses jika tombol continue diklik
     if (closePopupBtn) {
       closePopupBtn.addEventListener('click', () => {
         if (rsvpPopup) {
