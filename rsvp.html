@@ -56,7 +56,8 @@
 
           <p id="rsvp-error" class="form-error"></p>
 
-          <button type="submit" class="btn btn-primary">SEND 💌</button>
+          <!-- Tambahin id="rsvp-submit" di sini biar JS bisa nangkep tombolnya -->
+          <button type="submit" id="rsvp-submit" class="btn btn-primary">SEND 💌</button>
         </form>
       </div>
     </div>
@@ -68,6 +69,7 @@
       <div class="popup-icon">🎉</div>
       <h3>Thank you!!</h3>
       <p class="subtitle">Can't wait to celebrate with you!</p>
+      <!-- Pastikan ID di sini sesuai dengan yang di JS -->
       <button id="popup-continue" class="btn btn-primary mt-2">Continue</button>
     </div>
   </div>
@@ -101,7 +103,8 @@
         option.classList.add('active');
         
         const attendanceValue = option.getAttribute('data-value');
-        if (attendanceValue === 'yes') {
+        // PERBAIKAN: Ubah 'yes' jadi 'coming' agar sesuai dengan data-value di HTML
+        if (attendanceValue === 'coming') {
           selectedAttendance = "💖 OFCC ><";
         } else {
           selectedAttendance = "😢 NUHH :(";
@@ -113,7 +116,8 @@
     const rsvpForm = document.getElementById('rsvp-form');
     const rsvpSubmitBtn = document.getElementById('rsvp-submit');
     const rsvpPopup = document.getElementById('rsvp-popup');
-    const closePopupBtn = document.getElementById('close-rsvp-popup');
+    // PERBAIKAN: Ubah ID selector biar sesuai dengan ID tombol di HTML
+    const closePopupBtn = document.getElementById('popup-continue');
 
     if (rsvpForm) {
       rsvpForm.addEventListener('submit', function(event) {
@@ -162,6 +166,13 @@
 
           // Kosongkan kembali form inputan
           rsvpForm.reset();
+          
+          // Reset opsi ke default (OFCC) setelah disubmit
+          rsvpOptions.forEach(opt => opt.classList.remove('active'));
+          if (rsvpOptions.length > 0) {
+            rsvpOptions[0].classList.add('active');
+          }
+          selectedAttendance = "💖 OFCC ><";
 
           // Tampilkan Popup Sukses bawaan HTML lo
           if (rsvpPopup) {
