@@ -3,74 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>RSVP — SENN Sweet Seventeen</title>
+<title>SENN — Sweet Seventeen Invitation</title>
+<meta name="description" content="You're invited to Senn's Sweet Seventeen birthday celebration.">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/animations.css">
 <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 </head>
 <body>
 
+  <!-- Ambient background layers -->
   <canvas id="wave-canvas" class="bg-canvas-layer"></canvas>
   <div id="bubble-layer" class="bg-canvas-layer"></div>
   <div id="sparkle-layer" class="bg-canvas-layer"></div>
 
-  <div class="nav-back" data-target="dresscode.html" aria-label="Go back">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <!-- ============================= LOADING SCREEN ============================= -->
+  <div id="loading-screen">
+    <div class="loading-inner">
+      <div class="loading-logo">SENN</div>
+      <div class="loading-sub">Sweet Seventeen</div>
+      <div class="loading-wave-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
   </div>
 
-  <div class="flow-progress">
-    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
-  </div>
-
+  <!-- ============================= ROLE SELECTION ============================= -->
   <main class="stage">
-    <div class="content-layer">
-      <div class="glass-card">
-        <div class="text-center">
-          <span class="eyebrow">RSVP</span>
-          <h2 class="page-title" style="font-size:clamp(2rem,5vw,2.8rem); margin-top:0.5rem;">Can u come to my<br>17th birthday??</h2>
+    <div class="content-layer" id="role-selection">
+
+      <div class="hero-heading">
+        <span class="eyebrow">Welcome</span>
+        <h1 class="page-title">Please choose how<br>you'd like to continue</h1>
+      </div>
+
+      <div class="role-grid">
+
+        <!-- Join Invitation -->
+        <div class="glass-card hoverable role-card fade-in-up delay-1" id="card-join">
+          <svg class="role-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 8 C20 8 10 18 10 28 C10 40 22 50 32 56 C42 50 54 40 54 28 C54 18 44 8 32 8Z" stroke="currentColor" stroke-width="2.5" fill="rgba(207,175,134,0.12)"/>
+            <path d="M22 30 L29 37 L43 22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Join Invitation</h3>
+          <p class="subtitle">Join Senn's Sweet 17 Birthday Invitation</p>
+          <button class="btn btn-primary">ENTER</button>
         </div>
 
-        <form id="rsvp-form" class="rsvp-form">
-          <div class="form-group">
-            <label for="rsvp-name">Full Name</label>
-            <input type="text" id="rsvp-name" name="name" placeholder="Your full name" autocomplete="name" required>
-          </div>
+        <!-- Admin -->
+        <div class="glass-card hoverable role-card fade-in-up delay-2" id="card-admin">
+          <svg class="role-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="26" width="36" height="26" rx="6" stroke="currentColor" stroke-width="2.5" fill="rgba(207,175,134,0.12)"/>
+            <path d="M22 26 V18 a10 10 0 0 1 20 0 v8" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="32" cy="38" r="3" fill="currentColor"/>
+          </svg>
+          <h3>Admin</h3>
+          <p class="subtitle">Private Dashboard</p>
+          <button class="btn btn-ghost">LOGIN</button>
+        </div>
 
-          <div class="form-group">
-            <label for="rsvp-phone">Phone Number</label>
-            <input type="tel" id="rsvp-phone" name="phone" placeholder="e.g. 0812xxxxxxx" autocomplete="tel" required>
-          </div>
-
-          <div class="form-group">
-            <label>Can u come to my 17th birthday??</label>
-            <div class="rsvp-options">
-              <div class="rsvp-option" data-value="coming">OFCC</div>
-              <div class="rsvp-option" data-value="not_coming">NUHH :(</div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="rsvp-message">Message</label>
-            <textarea id="rsvp-message" name="message" placeholder="Leave a sweet message for Senn..."></textarea>
-          </div>
-
-          <p id="rsvp-error" class="form-error"></p>
-
-          <button type="submit" id="rsvp-submit" class="btn btn-primary">SEND 💌</button>
-        </form>
       </div>
+
+      <div class="text-center" style="margin-top:2.5rem;" data-aos="fade-up">
+        <span class="script" style="font-size:1.6rem;">See you at the beach ✨</span>
+      </div>
+
     </div>
   </main>
 
-  <!-- RSVP success popup -->
-  <div class="popup-overlay" id="rsvp-popup">
-    <div class="glass-card popup-card">
-      <div class="popup-icon">🎉</div>
-      <h3>Thank you!!</h3>
-      <p class="subtitle">Can't wait to celebrate with you!</p>
-      <button id="popup-continue" class="btn btn-primary mt-2">Continue</button>
-    </div>
-  </div>
+  <!-- Decorative palm leaf, bottom corner -->
+  <svg class="palm-leaf" style="position:fixed; bottom:-10px; left:-20px; width:140px; opacity:0.55; z-index:1; pointer-events:none;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 190 C100 140 60 120 20 110 C60 100 90 70 90 30" stroke="#3F8A5C" stroke-width="6" fill="none" opacity="0.4"/>
+    <path d="M100 190 C100 140 140 120 180 110 C140 100 110 70 110 30" stroke="#3F8A5C" stroke-width="6" fill="none" opacity="0.4"/>
+  </svg>
 
   <audio id="bg-audio" loop preload="none">
     <source src="assets/audio/ambient-ocean-piano.mp3" type="audio/mpeg">
@@ -79,119 +84,9 @@
     <div class="music-bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
   </button>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>
   <script src="js/effects.js"></script>
-  
-  <!-- FIX 1: SennGuard di-comment dulu biar ga infinite refresh -->
-  <!-- <script>window.SennGuard.requireInvite('index.html');</script> -->
-  
-  <!-- FIX 2: js/rsvp.js dihapus biar ga bentrok sama script di bawah -->
-
-  <script>
-    // 1. Logika untuk mendeteksi pilihan kehadiran (Yes / No)
-    const rsvpOptions = document.querySelectorAll('.rsvp-option');
-    let selectedAttendance = "💖 OFCC ><"; // Default
-
-    if (rsvpOptions.length > 0) {
-      rsvpOptions[0].classList.add('active');
-    }
-
-    rsvpOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        rsvpOptions.forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        
-        const attendanceValue = option.getAttribute('data-value');
-        if (attendanceValue === 'coming') {
-          selectedAttendance = "💖 OFCC ><";
-        } else {
-          selectedAttendance = "😢 NUHH :(";
-        }
-      });
-    });
-
-    // 2. Logika Kirim Data
-    const rsvpForm = document.getElementById('rsvp-form');
-    const rsvpSubmitBtn = document.getElementById('rsvp-submit');
-    const rsvpPopup = document.getElementById('rsvp-popup');
-    const closePopupBtn = document.getElementById('popup-continue');
-
-    if (rsvpForm) {
-      rsvpForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Mencegah web ke-refresh pas diklik
-
-        if (rsvpSubmitBtn) {
-          rsvpSubmitBtn.innerText = "SENDING... ✨";
-          rsvpSubmitBtn.disabled = true;
-        }
-
-        const guestName = document.getElementById('rsvp-name').value;
-        const guestPhone = document.getElementById('rsvp-phone').value;
-        const guestMessage = document.getElementById('rsvp-message').value || "-";
-
-        // Ganti dengan URL Google Apps Script lo
-        const googleSheetsEndpoint = "https://script.google.com/macros/s/AKfycbxncsqZkra1hCN3w3Rp2h5DqnAdx0846NCDNPRz0n7OP-V-BDfNLT8OPfytEUY6I84G/exec"; 
-
-        const payloadData = {
-          name: guestName,
-          phone: guestPhone,
-          attendance: selectedAttendance,
-          message: guestMessage
-        };
-
-        fetch(googleSheetsEndpoint, {
-          method: 'POST',
-          mode: 'no-cors', 
-          cache: 'no-cache',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payloadData)
-        })
-        .then(() => {
-          if (rsvpSubmitBtn) {
-            rsvpSubmitBtn.innerText = "SEND 💌";
-            rsvpSubmitBtn.disabled = false;
-          }
-
-          rsvpForm.reset();
-          
-          rsvpOptions.forEach(opt => opt.classList.remove('active'));
-          if (rsvpOptions.length > 0) {
-            rsvpOptions[0].classList.add('active');
-          }
-          selectedAttendance = "💖 OFCC ><";
-
-          if (rsvpPopup) {
-            rsvpPopup.classList.add('active');
-            rsvpPopup.style.display = 'flex'; 
-          }
-
-          if (typeof confetti === 'function') {
-            confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 } });
-          }
-        })
-        .catch(err => {
-          console.error("Error:", err);
-          alert("Jaringan bermasalah bro, coba lagi ya!");
-          if (rsvpSubmitBtn) {
-            rsvpSubmitBtn.innerText = "SEND 💌";
-            rsvpSubmitBtn.disabled = false;
-          }
-        });
-      });
-    }
-
-    if (closePopupBtn) {
-      closePopupBtn.addEventListener('click', () => {
-        if (rsvpPopup) {
-          rsvpPopup.classList.remove('active');
-          rsvpPopup.style.display = 'none';
-        }
-      });
-    }
-  </script>
 </body>
 </html>
